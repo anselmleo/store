@@ -23,12 +23,12 @@
 
         public function fetchAll()
         {
-            $this->taskModel::all();
+            return $this->taskModel::all();
         }
 
         public function fetch($task_id)
         {
-            $this->taskModel::find($task_id);
+            return $this->taskModel::find($task_id);
         }
     }
 
