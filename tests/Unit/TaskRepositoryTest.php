@@ -76,5 +76,39 @@ class TaskRepositoryTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $actual);
         $this->assertEquals($actual, $resultSet);
+
+        Mockery::close();
+    }
+
+
+    public function testIfFetchReturnsResultById()
+    {
+        $taskId = 1;
+        $resultSet = new Collection([
+            [
+                'id' => 1,
+                'title' => 'go to work',
+                'time' => '3:00PM',
+                'completed' => false,
+                'created_at' => '2019-05-16 17:11:14',
+                'updated_at' => '2019-05-16 17:11:14'
+            ]
+        ]);
+
+        $mock = Mockery::mock('\App\Task');
+        $mock->shouldReceive('find')
+             ->with($taskId)
+             ->andReturn($resultSet)
+             ->once();
+
+        $this->app->instance('App\Task', $mock);
+        $repo = $this->app->make('\App\Repositories\TaskRepository');
+
+        $actual = $repo->fetch($taskId);
+
+        $this->assertInstanceOf(Collection::class, $actual);
+        $this->assertEquals($actual, $resultSet);
+
+        Mockery::close();
     }
 }
