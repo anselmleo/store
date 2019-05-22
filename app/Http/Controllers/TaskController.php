@@ -15,10 +15,10 @@ class TaskController extends Controller
         $this->taskService = $taskService;
     }
     
-    public function addTask(TaskFormValidator $validator)
+    public function addTask(Request $request, TaskFormValidator $validator)
     {
         $formData = [
-            'title' => request('title')
+            'title' => $request->get('title')
         ];
 
         $this->taskService->make($formData);

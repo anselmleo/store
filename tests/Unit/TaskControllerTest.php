@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Mockery;
 use Tests\TestCase;
+use Illuminate\Http\Request;
 use App\Services\TaskService;
 use App\Http\Requests\TaskFormValidator;
 use App\Http\Controllers\TaskController;
@@ -24,7 +25,11 @@ class TaskControllerTest extends TestCase
 
     public function testIfAddTaskCallsServiceAndReturnsMessage() 
     {
-        $formData = ['title' => 'Title One'];
+        
+        
+        $formData = ['title' => ''];
+
+        $request = Request::create('/create', 'post', $formData);
 
         $mock = Mockery::mock(TaskService::class);
         $mock->shouldReceive('make')
@@ -33,9 +38,10 @@ class TaskControllerTest extends TestCase
         $this->app->instance(TaskService::class, $mock);
         $taskController = $this->app->make(TaskController::class);
 
-        $response = $taskController->addTask(new TaskFormValidator);
+        $response = $taskController->addTask($request, new TaskFormValidator);
 
-        $this->assertEquals('302', $response->getStatusCode());
+       // $this->assertEquals('302', $response->getStatusCode());
+       $this->assertSessionHasErrors();
 
     }
 
