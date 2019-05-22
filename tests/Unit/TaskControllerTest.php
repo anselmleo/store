@@ -6,6 +6,7 @@ use Mockery;
 use Tests\TestCase;
 use Illuminate\Http\Request;
 use App\Services\TaskService;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\TaskFormValidator;
 use App\Http\Controllers\TaskController;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -40,9 +41,16 @@ class TaskControllerTest extends TestCase
 
         $response = $taskController->addTask($request, new TaskFormValidator);
 
-       // $this->assertEquals('302', $response->getStatusCode());
-       $this->assertSessionHasErrors();
+        $this->assertEquals('302', $response->getStatusCode());
+    }
 
+    public function testIfControllerTestsValidation()
+    {
+        $formData = ['title' => 'Title One', '_token' => csrf_token()];
+
+        $this->call('post', '/create', $formData)
+             ->assertSessionHasErrors();
+        $this->assertEquals(session('errors')->get('title')[0], 'Please enter title!');
     }
 
 }
