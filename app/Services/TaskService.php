@@ -4,7 +4,7 @@
 
     use App\Repositories\TaskRepository;
 
-    Class TaskService 
+    Class TaskService
     {
         protected $taskRepository;
 
@@ -18,13 +18,4 @@
             $this->taskRepository->insert($formData);
         }
 
-        public function get($id)
-        {
-            $this->taskRepository->fetch($id);
-        }
-
-        public function getAll()
-        {
-            $this->taskRepository->fetchAll();
-        }
     }

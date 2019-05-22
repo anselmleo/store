@@ -4,6 +4,8 @@ namespace Tests\Unit;
 
 use Mockery;
 use Tests\TestCase;
+use Illuminate\Http\Request;
+use App\Repositories\TaskRepository;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -31,7 +33,9 @@ class TaskRepositoryTest extends TestCase
 
         $repo = $this->app->make('App\Repositories\TaskRepository');
        // var_dump($mock);
-        $repo->insert($formData);
+        $instance = $repo->insert($formData);
+
+        $this->assertInstanceOf(TaskRepository::class, $instance);
 
     }
 }

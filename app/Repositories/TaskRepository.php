@@ -5,12 +5,12 @@
     use App\Task;
 
 
-    Class TaskRepository 
+    Class TaskRepository
     {
 
         public $taskModel;
 
-        public function __construct(Task $taskModel) 
+        public function __construct(Task $taskModel)
         {
             $this->taskModel = $taskModel;
         }
@@ -18,6 +18,7 @@
         public function insert($orderData)
         {
             $this->taskModel->create($orderData);
+            return $this;
         }
 
         public function fetchAll()
