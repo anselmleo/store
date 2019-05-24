@@ -37,9 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function cart() {
+        return $this->belongsToMany(Product::class, Cart::class);
     }
 }
