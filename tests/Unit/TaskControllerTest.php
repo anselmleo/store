@@ -24,10 +24,10 @@ class TaskControllerTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testIfAddTaskCallsServiceAndReturnsMessage() 
+    public function testIfAddTaskCallsServiceAndReturnsMessage()
     {
-        
-        
+
+
         $formData = ['title' => ''];
 
         $request = Request::create('/create', 'post', $formData);
@@ -35,7 +35,7 @@ class TaskControllerTest extends TestCase
         $mock = Mockery::mock(TaskService::class);
         $mock->shouldReceive('make')
              ->once();
-        
+
         $this->app->instance(TaskService::class, $mock);
         $taskController = $this->app->make(TaskController::class);
 
@@ -46,7 +46,7 @@ class TaskControllerTest extends TestCase
 
     public function testIfControllerTestsValidation()
     {
-        $formData = ['title' => 'Title One', '_token' => csrf_token()];
+        $formData = ['title' => '', '_token' => csrf_token()];
 
         $this->call('post', '/create', $formData)
              ->assertSessionHasErrors();
