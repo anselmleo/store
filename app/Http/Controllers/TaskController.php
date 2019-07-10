@@ -2,27 +2,42 @@
 
 namespace App\Http\Controllers;
 
+
+Use App\Task;
+use App\User;
 use Illuminate\Http\Request;
 use App\Services\TaskService;
 use App\Http\Requests\TaskFormValidator;
 
+
 class TaskController extends Controller
 {
-    protected $taskService;
+    // protected $taskService;
 
-    public function __construct(TaskService $taskService)
-    {
-        $this->taskService = $taskService;
-    }
+    // public function __construct(TaskService $taskService)
+    // {
+    //     $this->taskService = $taskService;
+    // }
     
-    public function addTask(Request $request, TaskFormValidator $validator)
-    {
-        $formData = [
-            'title' => $request->get('title')
-        ];
+    // public function addTask(Request $request, TaskFormValidator $validator)
+    // {
+    //     $formData = [
+    //         'title' => $request->get('title')
+    //     ];
 
-        $this->taskService->make($formData);
-        return redirect()->back()->with('message', 'Title successfully added to db');
+    //     $this->taskService->make($formData);
+    //     return redirect()->back()->with('message', 'Title successfully added to db');
+
+    // }
+
+    public function testMutator() 
+    {
+        $task = new Task;
+        $task->title = 'Join the challenge - Code For Change';
+        $task->user_id = 3;
+        $task->save();
+
+        return 123;
     }
     
     

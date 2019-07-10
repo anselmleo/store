@@ -18,4 +18,5 @@ Route::get('/', function () {
 Route::get('/show', "TaskController@show");
 Route::get('/showtaskdetail/{id}', "TaskController@get");
 Route::get('/create', "TaskController@create");
-Route::post('/create', "TaskController@addtask");
+// Route::post('/create', "TaskController@addtask");
+Route::get('/create', "TaskController@testMutator");
